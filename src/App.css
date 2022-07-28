@@ -7,6 +7,30 @@
   pointer-events: none;
 }
 
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.memePic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.memeText {
+  text-transform: uppercase;
+  color: white;
+  font-size: 3rem;
+  font-family: 'Anton', sans-serif;
+  padding-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
