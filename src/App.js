@@ -9,17 +9,29 @@ function App() {
   const [page, setPage] = useState(0)
   const pageSize = 10
   const [lastPage, setLastPage] = useState(0)
+  const [errorMessage, setErrorMessage] = useState("")
 
   async function loadMemePicIUrls() {
-    const response = await fetch( "https://api.imgflip.com/get_memes" )
-    const result = await response.json()
-    console.log(result.data)
-    //const randomIndex = Math.floor(Math.random() * result.data.memes.length)
-    const randomIndex = 0
-    console.log(result.data.memes[randomIndex])
-    setMemeIndex(randomIndex)
-    setMemes(result.data.memes)
-    setLastPage(Math.floor((memes.length-1) / pageSize))
+    let result;
+    try {
+      const response = await fetch( "https://api.imgflip.com/get_memes" )
+      if (!response.ok) {
+        console.log("Something went wrong")
+        return
+      }
+      result = await response.json()
+    } catch(err) {
+      console.log(err.message)
+      setErrorMessage(err.message)
+    }
+      console.log(result.data)
+      //const randomIndex = Math.floor(Math.random() * result.data.memes.length)
+      const randomIndex = 0
+      console.log(result.data.memes[randomIndex])
+      setMemeIndex(randomIndex)
+      setMemes(result.data.memes)
+      setLastPage(Math.floor((memes.length-1) / pageSize))
+      setErrorMessage("")
   }
 
   useEffect(() => {
@@ -41,6 +53,7 @@ function App() {
   return (
     <div className="App">
       <h1>Create a Meme</h1>
+        {errorMessage ? <div className='error'>{errorMessage}</div>: <></>}
       <div className="container">
         <div className="leftPane">
           <div className='pageNavigation'>
